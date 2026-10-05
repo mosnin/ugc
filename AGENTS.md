@@ -1,22 +1,13 @@
 # AGENTS.md - working rules for this repo
 
-## Enrichment accuracy - never attach the wrong record (hard rule)
+## Money and posting - never double-charge, never double-post (hard rule)
 
-Enrichment (LinkedIn, email, phone, firmographics, anything) must ALWAYS attach
-to the correct person/company. It is NEVER acceptable to save data for a
-same-name stranger or a different company. This has caused real bugs and must
-not happen again, ever.
-
-Rules for any enrichment/lookup code:
-- Verify identity before saving: the candidate must match on the person's name
-  AND their company/domain (or title) before it is accepted. Matching on name
-  alone is forbidden (too many same-name people).
-- Prefer NOTHING over a wrong value. If a confident match cannot be verified,
-  return null and tell the user "couldn't find it" - never guess.
-- Provider lookups must be keyed by a strong identifier (work email, company
-  domain), not just a display name.
-- Reference implementation: `exaFindLinkedIn` in `src/lib/exa.ts` requires both a
-  name and company match. Keep that bar for every new enrichment path.
+Credits move only inside mutations that also advance the record they pay for
+(`convex/lib/credits.ts`), and every failure path refunds what it charged.
+Pipeline and publishing steps check the current status before acting, so a
+retried action, a duplicate webhook or the cron safety net is a no-op. Keep
+that bar for every new step. Webhooks must authenticate (per-job token or
+signature) before touching data.
 
 ## Copy - never use em dashes (hard rule)
 
@@ -36,11 +27,11 @@ list rows - never as decorative chips above headings or beside stats.
 
 ## Design system
 
-Before building or restyling any UI, read `DESIGN.md` - the durable spec for the
-Scalar aesthetic (baby-blue + white light-default color tokens, type, the
-eyebrow/masthead/panel patterns, the animated ASCII field + its conventions,
-motion/easing, mobile rules). Keep new work consistent with it; if you change a
-token or pattern, update `DESIGN.md` too.
+`DESIGN.md` is the Scalar-era design spec and is being replaced: the product UI
+is modelled on the Open-AI-UGC dashboard (`vendor/open-ai-ugc`), and the
+marketing site is the Cardinal template (`src/components/landingpage`), kept
+exactly as provided. When the dashboard cycle sets the new tokens, rewrite
+`DESIGN.md` in the same change.
 
 ## This is NOT a vanilla Next.js app (Next 16, App Router)
 
@@ -48,7 +39,6 @@ Don't assume Next ≤14 APIs - verify against the installed version. In particul
 middleware is `src/proxy.ts` (not `middleware.ts`); dynamic route `params` are a
 `Promise` (await them); theme-color comes from `export const viewport`; icons/manifest
 use file conventions (`app/manifest.ts`, `app/apple-icon.tsx` via `next/og`).
-The build compiles the app and does not change database schema. Apply reviewed
-schema changes separately with `pnpm db:deploy` before releasing a feature that
-depends on them. Verify changes with
-`./node_modules/.bin/eslint <files>` + a build before committing.
+The data layer is Convex: schema changes deploy with `npx convex dev` (local) or
+`npx convex deploy` (production), not with the Next build. Verify changes with
+`pnpm lint`, `pnpm typecheck`, `pnpm test` and a build before committing.

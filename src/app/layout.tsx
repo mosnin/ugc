@@ -1,3 +1,4 @@
+import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import type { Metadata, Viewport } from "next";
 import { AppProviders } from "@/components/providers/app-providers";
 import { PwaRegister } from "@/components/providers/pwa-register";
@@ -38,7 +39,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+  const page = (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <SquircleFilters />
@@ -46,5 +47,12 @@ export default function RootLayout({
         <PwaRegister />
       </body>
     </html>
+  );
+  // Without a Convex deployment the marketing and legal pages still render;
+  // only the signed-in pages need it.
+  return process.env.NEXT_PUBLIC_CONVEX_URL ? (
+    <ConvexAuthNextjsServerProvider>{page}</ConvexAuthNextjsServerProvider>
+  ) : (
+    page
   );
 }

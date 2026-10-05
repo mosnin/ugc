@@ -1,4 +1,4 @@
-# Scalar - Project Memory
+# UGC - Project Memory
 
 @.ritual/methods/README.md
 @docs/README.md
@@ -24,24 +24,21 @@ routing and the four-gate synthesis order live in the imported engine above.
 
 ## What we're building
 
-**Scalar - the CRM your agents run.** A structured CRM with a real UI and built-in
-intelligence, operated by AI agents: they discover leads, enrich the database,
-track deals, and run email relationships - reading/writing every record over MCP.
-For anyone working with AI agents who wants lead intelligence + deal tracking that
-stays consistent. **Moat:** structure + UI + intelligence as one system - vs agent
-frameworks that dump everything into messy `.md` files. **Data:** a single source
-of truth you control (enrichment flows in; your data is owned, exportable, never
-resold). Full identity: `docs/foundation/product.md` + `valueprop.md`.
+**UGC - faceless short-form channels on autopilot.** A creator picks a content
+style and a channel theme once; UGC writes, renders, stores and posts faceless
+videos to TikTok, Reels, Shorts and Facebook on a schedule, including while they
+sleep, and shows advanced metrics on what worked. Full identity:
+`docs/foundation/product.md`. Forked from Sicarii/Scalar (a CRM run by agents);
+every Scalar feature was removed 2026-10-05 (archive: `docs/archive/scalar/`).
 
 ## Foundation
 
 - North Star - `@docs/foundation/north-star.md` - the taste calibration
 - Product (what it is) - `docs/foundation/product.md`
-- Value proposition / positioning - `docs/foundation/valueprop.md`
-- Value proposition (legacy) - `@docs/foundation/value-proposition.md`
-- PRD / build brief - `docs/foundation/prd.md`
-- Brand kit - not yet provided (colors set: white/charcoal + `#1E4D2B`; logo at `public/logo.svg`)
-- User experience - not yet provided
+- Backend architecture - `docs/engineering/backend.md`
+- Upstream references - `vendor/README.md` (Open-AI-UGC dashboard,
+  Open-Higgsfield-AI studio, UGC-Factory script and style craft)
+- Brand kit, user experience - not yet provided
 
 Deep context and all decisions are indexed in `@docs/README.md`.
 
@@ -70,36 +67,26 @@ Deep context and all decisions are indexed in `@docs/README.md`.
 ## Project specifics
 
 - **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4.
-  Auth: **Clerk**. UI: Radix + shadcn-style kit in `src/components/ui`,
-  `lucide-react`, `motion`, `next-themes`. Payments: **Stripe** (cards; migrated
-  off Creem.io 2026-06-12) + x402 USDC for agents. Uploads: Uploadthing.
-- **ORM / DB:** target is **Prisma** ORM on **Supabase** Postgres.
-  ⚠️ _The tree still ships the original **Drizzle + Neon** layer (`src/db/`,
-  `drizzle.config.ts`). Migration to Prisma is an open cycle - see the Heading._
+  **Backend: Convex** (`convex/`): database, functions, scheduler, crons.
+  **Auth: Convex Auth** (Password, optional Google) wired through
+  `src/proxy.ts`. **Storage: Cloudflare R2** via `@convex-dev/r2`. Providers:
+  OpenAI (scripts), MuAPI (text-to-video), Ayrshare (posting + analytics),
+  Stripe Checkout (credit packs). All provider keys are Convex env vars, see
+  `.env.local.example`.
 - **Package manager:** pnpm (`pnpm-lock.yaml`).
-- **Setup:** copy `.env.local.example` → `.env.local` and fill keys; `pnpm install`.
-- **Run (dev):** `pnpm dev` · **Build:** `pnpm build` · **Start:** `pnpm start`
-  · **Lint:** `pnpm lint`.
-- **Conventions:** import alias `@/*` → `src/*`. Route groups: `(auth)`,
-  `(dashboard)`, `(admin)`. Theme tokens live in `src/app/globals.css`
-  (**baby-blue + white, light by default**; legacy `orange`/`brand` Tailwind
-  utilities are aliased to baby blue - rename is a tracked debt). Logo: the `λ`
-  mark via `LogoMark` (theme-swapped PNGs: blue light / white dark). The agent is
-  named **Scalar** and uses the logo as its avatar/nav icon.
+- **Run (dev):** `npx convex dev` (backend, writes `.env.local`) and `pnpm dev`
+  · **Test:** `pnpm test` (vitest + convex-test, `convex/*.test.ts`) ·
+  **Typecheck:** `pnpm typecheck` · **Lint:** `pnpm lint` · **Build:** `pnpm build`.
+- **Conventions:** import alias `@/*` -> `src/*`, `@convex/*` -> `convex/*`.
+  Pipeline steps are status-guarded mutations; network calls live in actions;
+  provider clients in `convex/lib/providers/` are plain fetch with an
+  injectable `fetchImpl`. Commit `convex/_generated/`.
+- **Marketing site:** the Cardinal template in `src/components/landingpage`
+  (founder-mandated, kept exact). Do not restyle it unless asked.
 - **Copy hard rule:** NEVER use em dashes or en dashes anywhere (UI, code,
-  comments, docs, commits). Use commas, periods, colons, or a plain hyphen `-`.
-- **Enrichment accuracy hard rule:** enrichment must NEVER attach data for the
-  wrong person/company (no same-name strangers). Verify name AND company/domain
-  before saving; prefer null + "couldn't find it" over a wrong value. Details in
-  `AGENTS.md` and `docs/foundation/product.md`.
-- **Design & agent rules - read before any UI work:** `DESIGN.md` (the durable
-  design system) and `AGENTS.md`. Two hard rules: **no decorative icons** (never
-  an icon-in-a-tinted-box badge), and **this is NOT vanilla Next.js** - Next 16
-  specifics (middleware = `src/proxy.ts`; dynamic `params` are a `Promise`;
-  `export const viewport`; file-convention `app/manifest.ts` / `app/apple-icon.tsx`).
-  Verify APIs against the installed Next, not memory.
-- **Origin:** rebranded from the `mosnin/fortitudov4` agency scaffolding (forked
-  the orange/charcoal studio site, then diverged to baby-blue/white - do not
-  reintroduce orange/charcoal as the brand).
-
-<!-- ritual:installed -->
+  comments, docs, commits, model-generated text). Use commas, periods, colons,
+  or a plain hyphen `-`. Script generation strips them too.
+- **Next 16 is not vanilla Next.js:** middleware is `src/proxy.ts`; dynamic
+  `params` are a `Promise`; `export const viewport`; file-convention
+  `app/manifest.ts`. Verify APIs against the installed Next, not memory. Read
+  `AGENTS.md` before UI work.

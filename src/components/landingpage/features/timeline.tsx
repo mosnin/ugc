@@ -79,7 +79,7 @@ const PLAYHEAD_X = 428;
 const ROWS = [
   {
     title: "Money facts · TikTok",
-    range: "May 1 – Jun 8 · 2.4M views",
+    range: "May 1 - Jun 8 · 2.4M views",
     left: 44,
     width: 258,
     top: 90,
@@ -87,7 +87,7 @@ const ROWS = [
   },
   {
     title: "Reddit stories · Shorts",
-    range: "May 17 – Jun 2 · 910K views",
+    range: "May 17 - Jun 2 · 910K views",
     left: 188,
     width: 250,
     top: 150,
@@ -95,7 +95,7 @@ const ROWS = [
   },
   {
     title: "Motivation clips · Reels",
-    range: "May 6 – May 28 · 1.1M views",
+    range: "May 6 - May 28 · 1.1M views",
     left: 90,
     width: 228,
     top: 210,

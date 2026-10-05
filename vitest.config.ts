@@ -8,7 +8,9 @@ export default defineConfig({
     },
   },
   test: {
-    environment: "node",
-    include: ["tests/**/*.test.ts"],
+    // convex-test runs Convex functions in the edge runtime, like the real backend.
+    environment: "edge-runtime",
+    server: { deps: { inline: ["convex-test"] } },
+    include: ["convex/**/*.test.ts"],
   },
 });

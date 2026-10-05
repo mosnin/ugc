@@ -18,7 +18,7 @@ export function Metrics01() {
             <h2 className="screen-line-bottom ml-4 font-heading text-3xl font-medium tracking-tight">
               Insights
               <sup className="top-[-0.75em] ml-1 text-sm font-medium tracking-normal text-muted-foreground">
-                ({format(new Date(data.startDate), "dd.MM")} –{" "}
+                ({format(new Date(data.startDate), "dd.MM")} -{" "}
                 {format(new Date(data.endDate), "dd.MM")})
               </sup>
             </h2>
