@@ -5,23 +5,23 @@ import { SquircleFilters } from "@/components/ui/squircle-filter";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Scalar | The CRM Your Agents Run",
+  title: "UGC | Faceless Content on Autopilot",
   description:
-    "A CRM operated by AI agents - they discover leads, enrich your database, run the conversations, and own the data. You direct; the agents operate.",
+    "Pick your content style and channel theme once. UGC writes, voices, renders, and posts faceless videos while you sleep, with advanced metrics on what works.",
   metadataBase: new URL("https://tryscalar.xyz"),
-  applicationName: "Scalar",
+  applicationName: "UGC",
   appleWebApp: {
     capable: true,
-    title: "Scalar",
+    title: "UGC",
     statusBarStyle: "default",
   },
   formatDetection: { telephone: false },
   openGraph: {
-    title: "Scalar | The CRM Your Agents Run",
+    title: "UGC | Faceless Content on Autopilot",
     description:
-      "A CRM operated by AI agents - discover, enrich, and own every relationship, all on data that stays inside.",
+      "Faceless short-form videos written, rendered, and auto-posted to TikTok, Reels, and Shorts while you sleep.",
     url: "https://tryscalar.xyz",
-    siteName: "Scalar",
+    siteName: "UGC",
     type: "website",
   },
 };

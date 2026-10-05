@@ -78,7 +78,6 @@ export default function DpaPage() {
       related={[
         { label: "Subprocessors", href: "/subprocessors" },
         { label: "Privacy Policy", href: "/privacy" },
-        { label: "Security", href: "/security" },
       ]}
     />
   );

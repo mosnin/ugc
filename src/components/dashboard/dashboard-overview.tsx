@@ -343,7 +343,7 @@ export function DashboardOverview({
                     <Link href="/welcome">Build my CRM</Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
-                    <Link href="/integrations">Connect your agent</Link>
+                    <Link href="/settings">Connect your agent</Link>
                   </Button>
                 </>
               ) : (

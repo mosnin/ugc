@@ -64,7 +64,6 @@ export default function SubprocessorsPage() {
       related={[
         { label: "Data Processing Addendum", href: "/dpa" },
         { label: "Privacy Policy", href: "/privacy" },
-        { label: "Security", href: "/security" },
       ]}
     />
   );

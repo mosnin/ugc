@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { GeistSans } from "geist/font/sans";
+import Header from "@/components/landingpage/header";
+import Footer from "@/components/landingpage/footer";
 import { Badge } from "@/components/ui/badge";
 
 export interface LegalSection {
@@ -32,9 +33,11 @@ export function LegalDoc({
   related?: { label: string; href: string }[];
 }) {
   return (
-    <>
+    <div
+      className={`${GeistSans.className} flex min-h-screen flex-col bg-white dark:bg-black`}
+    >
       <Header />
-      <main className="flex-1 pt-16">
+      <main className="flex-1">
         {/* Hero */}
         <section className="relative overflow-hidden py-24 sm:py-28">
           <div className="absolute inset-0 bg-muted/40 dark:bg-charcoal-dark" />
@@ -106,7 +109,7 @@ export function LegalDoc({
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

@@ -106,7 +106,6 @@ export default function PrivacyPage() {
         { label: "Cookie Policy", href: "/cookies" },
         { label: "Subprocessors", href: "/subprocessors" },
         { label: "Data Processing Addendum", href: "/dpa" },
-        { label: "Security", href: "/security" },
       ]}
     />
   );

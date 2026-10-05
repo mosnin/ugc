@@ -66,7 +66,6 @@ export default function AcceptableUsePage() {
       related={[
         { label: "Terms of Service", href: "/terms" },
         { label: "Privacy Policy", href: "/privacy" },
-        { label: "Security", href: "/security" },
       ]}
     />
   );

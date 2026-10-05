@@ -58,7 +58,7 @@ export default function RefundPolicyPage() {
       ]}
       related={[
         { label: "Terms of Service", href: "/terms" },
-        { label: "Pricing", href: "/pricing" },
+        { label: "Pricing", href: "/#pricing" },
       ]}
     />
   );
